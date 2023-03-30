@@ -28,16 +28,17 @@ public class Dot {
     }
 
     public double getDistance(Dot to) {
-        return Math.sqrt((to.x - x)*(to.x - x) + (to.y - y)*(to.y - y));
+        return ((to.x - x)*(to.x - x) + (to.y - y)*(to.y - y));
     }
 
-    public double getAngle(Dot first, Dot second) {
-        double a = first.getDistance(this);
-        double b = second.getDistance(this);
-        double c = first.getDistance(second);
-        double cos = (b*b + c*c - a*a) / 2*b*c;
+    public double getOrientation(Dot first, Dot second) {
+        double val = (second.y - first.y) * (this.x - second.x) - (second.x - first.x) * (this.y - second.y);
 
-        return Math.acos(cos);
+        if(val < EPS && val > -EPS) {
+            return 0;
+        }
+
+        return (val > 0) ? 1 : 2;
     }
 
     public Color getColor() {

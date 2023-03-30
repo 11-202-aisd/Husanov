@@ -4,45 +4,35 @@ import java.util.Random;
 public class JarvisMarch {
     private static final double EPS = 0.000001;
 
+
     public ArrayList<Dot> JarvisMarchAlgorithm(ArrayList<Dot> dots) {
-        Dot f = dots.get(0);
-        Dot s = dots.get(0);
+        int l = 0;
 
         ArrayList<Dot> ans = new ArrayList<>();
 
         for(int i = 1; i < dots.size(); i++) {
             Dot dot = dots.get(i);
-            if (f.getX() >= dot.getX()) {
-                f = dot;
+            if (dots.get(l).getX() >= dot.getX()) {
+                l = i;
             }
         }
 
-        ans.add(f);
-        s = new Dot(f.getX(), f.getY() + EPS * 2);
-        ans.add(s);
+        int p = l, q;
+        int n = dots.size();
 
+        do {
+            ans.add(dots.get(p));
 
-        for(int i = 0; i < dots.size(); i++) {
-            f = ans.get(i);
-            s = ans.get(i + 1);
-
-            Dot third = dots.get(0);
-            for (int j = 0; j < dots.size(); j++) {
-                Dot dot = dots.get(j);
-
-                if(dot.getAngle(f, s) - third.getAngle(f, s) > EPS) {
-                    third = dot;
+            q = (p + 1) % n;
+            for(int i = 0; i < n; i++) {
+                if(dots.get(q).getOrientation(dots.get(p), dots.get(i)) == 2) {
+                    q = i;
                 }
             }
 
-            if(third.equals(ans.get(0))) {
-                break;
-            }
+            p = q;
+        } while (p != l);
 
-            ans.add(third);
-            dots.remove(third);
-        }
-        ans.remove(1);
         return ans;
     }
 
