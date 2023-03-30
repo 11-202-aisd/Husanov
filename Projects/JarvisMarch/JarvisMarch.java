@@ -25,13 +25,13 @@ public class JarvisMarch {
 
             q = (p + 1) % n;
             for(int i = 0; i < n; i++) {
-                if(dots.get(q).getOrientation(dots.get(p), dots.get(i)) == 2) {
+                if(dots.get(q).getOrientation(dots.get(p), dots.get(i)) == 2 && dots.get(i).getDistance(dots.get(q)) > 0.05 * 0.05) {
                     q = i;
                 }
             }
 
             p = q;
-        } while (p != l);
+        } while (p != l && dots.get(p).getDistance(dots.get(l)) > 0.05*0.05 && ans.size() < dots.size());
 
         return ans;
     }
