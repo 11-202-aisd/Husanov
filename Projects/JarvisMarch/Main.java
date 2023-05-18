@@ -13,13 +13,15 @@ public class Main {
         while(!StdDraw.isKeyPressed(32)) {
             screen.update();
         }
+
+        //Generate tests
         /*
         RandomGenerator dg = new RandomGenerator();
         dg.init("tests.txt");
         dg.generateTests(100, 10000);
          */
 
-
+        //Solve tests from file
         /*DataGetter dt = new DataGetter();
 
         dt.init("tests.txt");
